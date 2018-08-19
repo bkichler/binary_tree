@@ -39,7 +39,7 @@ attr_accessor :payload, :children
         nil
     end
 
-    def self.breadth_first_search(node)
+    def self.breadth_first_search(node, num)
         current_children = node.children
         queue = Queue.new
         visited = Array.new.push(node.payload)
@@ -53,8 +53,10 @@ attr_accessor :payload, :children
             working_node = queue.first
             queue.dequeue
 
-            if visited.last == 11
+            if visited.last == num
                 return puts visited
+            elsif queue.empty?
+                return puts "#{num} not found"
             else
                 current_children = working_node.children
             end
@@ -85,7 +87,7 @@ trunk = Tree.new(2, [seventh_node, shallow_fifth_node])
 
 # print tree
 # Tree.depth_first_search(trunk)
-Tree.breadth_first_search(trunk)
+Tree.breadth_first_search(trunk, 11)
 
 
 
