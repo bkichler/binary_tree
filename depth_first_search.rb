@@ -11,13 +11,13 @@ class Tree
   end
 
   def self.depth_first_search(node)
-      puts node.payload
-      return node.payload if node.payload == 11
+    puts node.payload
+    return node.payload if node.payload == 11
 
-      node.children.each do |child|
-        found = depth_first_search(child) and return found
-      end   
-      nil
+    node.children.each do |child|
+      found = depth_first_search(child) and return found
+    end   
+    nil
   end
 
 

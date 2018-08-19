@@ -15,6 +15,10 @@ class Queue
     def first
         @queue.first
     end
+
+    def empty?
+        @queue.empty?
+    end
 end
 
 class Tree
@@ -36,29 +40,25 @@ attr_accessor :payload, :children
     end
 
     def self.breadth_first_search(node)
-        current_node        = node
-        current_children    = node.children
-        if defined?(queue) == nil
-            queue = Queue.new
-            queue.enqueue(node)
-        end
-        # check unvisited, adjacent nodes of current node, 
-        # and enqueue when found
-        current_children.each do | child |
-            queue.enqueue(child)
-        end
-        # update current node to first element of queue,
-        # dequeue first element of queue
-        current_node     = queue.first
-        queue.dequeue
-        # if the new current node has no children, switch
-        # pointer to new first element of queue, 
-        # then dequeue
-        if current_node.children.nil?
-            current_node = queue.first
+        current_children = node.children
+        queue = Queue.new
+        visited = Array.new.push(node.payload)
+
+        while node
+            current_children.each do | child |
+                queue.enqueue(child)
+                visited << child.payload
+            end
+
+            working_node = queue.first
             queue.dequeue
+
+            if visited.last == 11
+                return puts visited
+            else
+                current_children = working_node.children
+            end
         end
-        breadth_first_search(current_node)
     end
 
     def self.print_tree(node)
