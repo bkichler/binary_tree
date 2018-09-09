@@ -10,14 +10,13 @@ class BinaryTree
 end
 
 class BTreeSort
-  attr_accessor :array, :sort_ary, :tree, :current_parent
+  attr_accessor :array, :sort_ary, :tree
 
   def initialize(array)
     @array = array
     @tree = BinaryTree.new(@array.shift, nil, nil)
     @sort_ary = []
     @top_node = @tree
-    @current_parent = nil
   end
 
   def build_tree(node)
@@ -42,7 +41,7 @@ class BTreeSort
   end
 
   def tree_sort(node)
-    return @sort_ary if !defined?(node.left)
+    return @sort_ary if @top_node.nil?
 
     if @top_node.left.nil?
       @sort_ary.push(@top_node.payload)
@@ -63,11 +62,7 @@ class BTreeSort
   end
 end
 
-
-tree = BTreeSort.new([7, 4, 9, 1, 6, 14, 10])
-tree.build_tree(tree.tree)
-puts tree.tree.inspect
-tree.tree_sort(tree.tree)
-puts tree.sort_ary.inspect
-puts tree.current_parent.inspect
-puts tree.tree.inspect
+sorter = BTreeSort.new([7, 4, 9, 1, 6, 14, 10])
+sorter.build_tree(sorter.tree)
+sorted_ary = sorter.tree_sort(sorter.tree)
+puts sorted_ary.inspect
